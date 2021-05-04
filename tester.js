@@ -7,7 +7,8 @@ const bigFact = num => {
 }
 
 //for 4x4 cube
-let ans = (bigFact(8) * bigFact(24) * bigFact(24) * ((3n**8n))/ (3n * (24n**7n)))
+//sum is 8!·24!·24!·3^8/(3·24^7) 
+let ans = bigFact(8) * bigFact(24) * bigFact(24) * (3n**8n)/ (3n * (24n**7n))
 
 console.log(ans)
 
