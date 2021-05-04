@@ -3,12 +3,8 @@ const factorial = n => {
     return (n != 1) ? n * factorial(n-1) : 1;
 }
 
-const bigFact = num => {
-    return BigInt(factorial(num))
-}
-
-let corners = bigFact(8) * (3n**7n);
-let centerEdges = bigFact(12) * (2n**10n);
+let corners = factorial(8) * (3**7);
+let centerEdges = factorial(12) * (2**10);
 
 let bigSize, edgeLength, centerSize, numOfInnerSets, numOfEdgeSets, odd;
 
@@ -18,15 +14,14 @@ const calculateDimensions = rubiksSize => {
     } else {
         odd = true;
     }
-    bigSize = BigInt(rubiksSize)
-    edgeLength = bigSize -2n;
-    centerSize = edgeLength ** 2n;
+    edgeLength = rubiksSize -2;
+    centerSize = edgeLength ** 2;
     if (!odd){
-        numOfInnerSets = centerSize / 4n;
-        numOfEdgeSets = edgeLength / 2n;
+        numOfInnerSets = centerSize / 4;
+        numOfEdgeSets = edgeLength / 2;
     } else {
-        numOfInnerSets = (centerSize - 1n)/ 4n;
-        numOfEdgeSets = (edgeLength -1n) / 2n;
+        numOfInnerSets = (centerSize - 1)/ 4;
+        numOfEdgeSets = (edgeLength -1) / 2;
     }
     console.log(`Rubiks Size: ${rubiksSize}    Edge Length: ${edgeLength}`)
     console.log(`Center Size: ${centerSize}    Number of Inner Sets: ${numOfInnerSets}`);
@@ -37,23 +32,30 @@ let reducer, innerSetMultiplier, edgeSetMultiplier, combinations;
 
 const rubiksSolver = r => {
     calculateDimensions(r);
-    edgeSetMultiplier = (bigFact(24))**numOfEdgeSets
+    edgeSetMultiplier = (factorial(24))**numOfEdgeSets
     if (odd) {
-        reducer = (24n**6n)**numOfInnerSets 
-        innerSetMultiplier = (bigFact(24))**numOfInnerSets;
+        reducer = (24**6)**numOfInnerSets 
+        innerSetMultiplier = (factorial(24))**numOfInnerSets;
         combinations = (corners * centerEdges * innerSetMultiplier * edgeSetMultiplier) / reducer
+
+        
+
         console.log(`A cube of size ${r} has ${combinations} different combinations`)
         console.log("***********")
     } else {
-        reducer = ((24n**6n)**((edgeLength/2n)**2n))*24n
-        innerSetMultiplier = bigFact(24)**((edgeLength/2n)**2n);
+        reducer = ((24**6)**((edgeLength/2)**2))*24
+        innerSetMultiplier = factorial(24)**((edgeLength/2)**2);
         combinations = (corners * innerSetMultiplier * edgeSetMultiplier) / reducer
+
+        console.log(`8! . 3^7 . (24! ^ ${numOfInnerSets}) . (24! ^ ${numOfEdgeSets}`)
+        console.log(` / (24^6)^((${edgeLength}/2)^2) . 24 `)
+
         console.log(`A cube of size ${r} has ${combinations} different combinations`)
         console.log("***********")
     }
     
 }
 
-for (let i=2; i<15; i++){
+for (let i=2; i<10; i++){
     rubiksSolver(i)
 } 
