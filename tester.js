@@ -6,6 +6,7 @@ const bigFact = num => {
     return BigInt(factorial(num))
 }
 
+//for 4x4 cube
 let ans = (bigFact(8) * bigFact(24) * bigFact(24) * ((3n**8n))/ (3n * (24n**7n)))
 
 console.log(ans)
