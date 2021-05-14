@@ -3,12 +3,12 @@ const factorial = n => {
 }
 
 const bigFact = num => {
-    return BigInt(factorial(num))
+    return (num !== 1n) ? num * bigFact(num-1n) : 1n
 }
 
 //for 4x4 cube
 //sum is 8!·24!·24!·3^8/(3·24^7) 
-let ans = bigFact(8) * bigFact(24) * bigFact(24) * (3n**8n)/ (3n * (24n**7n))
+let ans = bigFact(8n) * bigFact(24n) * bigFact(24n) * (3n**8n)/ (3n * (24n**7n))
 
 console.log(ans)
 
